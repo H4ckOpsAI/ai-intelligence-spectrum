@@ -55,11 +55,11 @@ from src.predict_channel import load_model
 #  6G SPECTRUM SLOT DISPLAY MAPPING  (UI only — backend unchanged)
 # =============================================================================
 CHANNEL_DISPLAY_MAP = {
-    "channel_1":  "Spectrum Slot A",
-    "channel_3":  "Spectrum Slot B",
-    "channel_6":  "Spectrum Slot C",
-    "channel_9":  "Spectrum Slot D",
-    "channel_11": "Spectrum Slot E",
+    "channel_1":  "Spectrum Channel A",
+    "channel_3":  "Spectrum Channel B",
+    "channel_6":  "Spectrum Channel C",
+    "channel_9":  "Spectrum Channel D",
+    "channel_11": "Spectrum Channel E",
 }
 
 SLOT_DESCRIPTIONS = {
@@ -75,11 +75,11 @@ def ch_label(ch: str) -> str:
     return CHANNEL_DISPLAY_MAP.get(ch, ch)
 
 def ch_short(ch: str) -> str:
-    """Return short slot letter (A-E) for compact displays."""
-    return CHANNEL_DISPLAY_MAP.get(ch, ch).replace("Spectrum Slot ", "Slot ")
+    """Return short Channel letter (A-E) for compact displays."""
+    return CHANNEL_DISPLAY_MAP.get(ch, ch).replace("Spectrum Channel ", "Channel ")
 
 def filter_text_labels(text: str) -> str:
-    """Replace all channel references with Slot names in logs and alerts."""
+    """Replace all channel references with Channel names in logs and alerts."""
     for ch, slot in CHANNEL_DISPLAY_MAP.items():
         # Replace code-level references 'channel_1'
         text = text.replace(f"'{ch}'", slot)
@@ -250,13 +250,13 @@ with col1:
 
 with col2:
     st.markdown(f"""<div class="kpi-card">
-        <p>Spectrum Slots</p><h2>{len(CHANNELS)}</h2>
+        <p>Spectrum Channels</p><h2>{len(CHANNELS)}</h2>
     </div>""", unsafe_allow_html=True)
 
 with col3:
     css = "status-congested" if congested_list else "status-free"
     st.markdown(f"""<div class="kpi-card {css}">
-        <p>Congested Slots</p><h2>{len(congested_list)}</h2>
+        <p>Congested Channels</p><h2>{len(congested_list)}</h2>
     </div>""", unsafe_allow_html=True)
 
 with col4:
@@ -268,7 +268,7 @@ with col4:
 #  SECTION 2 — CHANNEL STATUS PANEL
 # =============================================================================
 st.markdown("---")
-st.subheader("📶 Spectrum Slot Status")
+st.subheader("📶 Spectrum Channel Status")
 
 ch_cols = st.columns(len(CHANNELS))
 STATUS_ICONS = {"free": "🟢", "moderate": "🟡", "congested": "🔴"}
