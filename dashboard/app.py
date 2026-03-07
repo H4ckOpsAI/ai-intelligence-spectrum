@@ -362,8 +362,8 @@ ax_bar.set_xticklabels(channel_labels)
 ax_bar.axhline(y=CONGESTION_THRESHOLD, color="#e74c3c", linestyle="--",
                linewidth=1.2, label=f"Threshold ({CONGESTION_THRESHOLD})")
 ax_bar.set_ylabel("Number of Devices", fontweight="bold")
-ax_bar.set_xlabel("Spectrum Slot", fontweight="bold")
-ax_bar.set_title("Devices per Spectrum Slot", fontweight="bold", fontsize=14)
+ax_bar.set_xlabel("Spectrum Channel", fontweight="bold")
+ax_bar.set_title("Devices per Spectrum Channel", fontweight="bold", fontsize=14)
 ax_bar.legend()
 ax_bar.set_ylim(0, max(max(channel_values) + 2, CHANNEL_CAPACITY + 1))
 
@@ -386,7 +386,7 @@ st.pyplot(fig_bar)
 #  SECTION 5B — CHANNEL CAPACITY BARS (Feature 5)
 # =============================================================================
 st.markdown("---")
-st.subheader("🔋 Spectrum Slot Utilization")
+st.subheader("🔋 Spectrum Channel Utilization")
 
 cap_cols = st.columns(len(CHANNELS))
 for i, ch in enumerate(CHANNELS):
@@ -485,9 +485,9 @@ with noc_col1:
     st.markdown(f"""<div class="noc-panel">
         <h3>🏥 Network Health Monitor</h3>
         <div class="noc-metric">Total Devices: <strong>{total_devices}</strong></div>
-        <div class="noc-metric">Spectrum Slots: <strong>{total_channels}</strong></div>
-        <div class="noc-metric">Congested Slots: <strong class="{health_class}">{num_congested}</strong></div>
-        <div class="noc-metric">Avg Slot Load: <strong>{avg_load}</strong></div>
+        <div class="noc-metric">Spectrum Channels: <strong>{total_channels}</strong></div>
+        <div class="noc-metric">Congested Channels: <strong class="{health_class}">{num_congested}</strong></div>
+        <div class="noc-metric">Avg Channel Load: <strong>{avg_load}</strong></div>
         <div class="noc-metric">System Status: <span class="{health_class}">{health_icon} {"HEALTHY" if num_congested == 0 else "DEGRADED" if num_congested <= 1 else "CRITICAL"}</span></div>
     </div>""", unsafe_allow_html=True)
 
@@ -511,7 +511,7 @@ with noc_col2:
 #  SECTION 10 — SIMULATION PERFORMANCE GRAPH (Feature 10)
 # =============================================================================
 st.markdown("---")
-st.subheader("📈 Spectrum Slot Load History")
+st.subheader("📈 Spectrum Channel Load History")
 
 history = G.graph.get("load_history", {})
 has_history = any(len(h) > 1 for h in history.values())
@@ -542,7 +542,7 @@ if has_history:
                      linewidth=1.2, alpha=0.7, label=f"Threshold ({CONGESTION_THRESHOLD})")
     ax_perf.set_xlabel("Time Step", fontweight="bold")
     ax_perf.set_ylabel("Device Count", fontweight="bold")
-    ax_perf.set_title("Spectrum Slot Load History", fontweight="bold", fontsize=14)
+    ax_perf.set_title("Spectrum Channel Load History", fontweight="bold", fontsize=14)
     ax_perf.legend(fontsize=8, ncol=3)
     ax_perf.set_ylim(bottom=0)
 
@@ -575,16 +575,16 @@ with legend_col1:
         slot_lines += f"<div style='margin:5px 0;'>{name} &mdash; <strong>{desc}</strong></div>"
 
     st.markdown(f"""<div class="legend-box">
-        <h4>🛰️ Future 6G Spectrum Slots</h4>
+        <h4>🛰️ Future 6G Spectrum Channels</h4>
         {slot_lines}
     </div>""", unsafe_allow_html=True)
 
 with legend_col2:
     st.markdown("""<div class="legend-box">
         <h4>🔭 Next-Gen Bands (Roadmap)</h4>
-        <div style='margin:5px 0; opacity:0.5;'>Slot F &mdash; Visible Light Communication</div>
-        <div style='margin:5px 0; opacity:0.5;'>Slot G &mdash; Satellite Direct-to-Cell</div>
-        <div style='margin:5px 0; opacity:0.5;'>Slot H &mdash; Reconfigurable Intelligent Surface</div>
+        <div style='margin:5px 0; opacity:0.5;'>Channel F &mdash; Visible Light Communication</div>
+        <div style='margin:5px 0; opacity:0.5;'>Channel G &mdash; Satellite Direct-to-Cell</div>
+        <div style='margin:5px 0; opacity:0.5;'>Channel H &mdash; Reconfigurable Intelligent Surface</div>
         <div style='margin:5px 0; opacity:0.5;'><em>Planned for v4.0</em></div>
     </div>""", unsafe_allow_html=True)
 
